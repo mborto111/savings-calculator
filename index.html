@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commission Savings Calculator | Michael Bortolin, One Percent Realty</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif; color: #1a2a3a; background: transparent; }
+  .calc-wrap { max-width: 560px; margin: 0 auto; padding: 24px 16px; }
+  .slider-card { background: #fff; border: 1px solid #e2e6ea; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+  .slider-label { font-size: 12px; color: #6b7a8d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .price-display { font-size: 36px; font-weight: 600; color: #1a3a5c; margin-bottom: 16px; }
+  input[type="range"] { -webkit-appearance: none; width: 100%; height: 6px; background: #e2e6ea; border-radius: 3px; outline: none; cursor: pointer; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #1a3a5c; cursor: pointer; border: 3px solid #fff; }
+  .range-labels { display: flex; justify-content: space-between; font-size: 11px; color: #9aa5b0; margin-top: 6px; }
+  .section-label { font-size: 12px; font-weight: 600; color: #6b7a8d; text-transform: uppercase; margin-bottom: 8px; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .compare-card { background: #f5f7f9; border-radius: 10px; padding: 16px; }
+  .compare-card .label { font-size: 12px; color: #6b7a8d; margin-bottom: 4px; }
+  .compare-card .amount { font-size: 22px; font-weight: 600; margin-bottom: 2px; }
+  .compare-card .amount.trad { color: #c0392b; }
+  .compare-card .amount.opr { color: #0f6e56; }
+  .compare-card .tax-note { font-size: 11px; color: #9aa5b0; }
+  .how-it-works { background: #f5f7f9; border-radius: 10px; padding: 12px 16px; margin-bottom: 12px; font-size: 12px; color: #6b7a8d; line-height: 1.5; }
+  .savings-block { background: #e1f5ee; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+  .savings-top { text-align: center; margin-bottom: 20px; }
+  .savings-top .save-label { font-size: 13px; color: #0f6e56; margin-bottom: 4px; }
+  .savings-top .save-amount { font-size: 42px; font-weight: 700; color: #085041; line-height: 1.1; }
+  .savings-top .save-sub { font-size: 13px; color: #0f6e56; margin-top: 6px; }
+  .savings-divider { border: none; border-top: 1px solid #9fe1cb; margin: 0 0 16px; }
+  .service-title { font-size: 15px; font-weight: 600; color: #085041; margin-bottom: 10px; }
+  .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+  .service-grid span { font-size: 13px; color: #042c53; line-height: 1.4; }
+  .check { color: #1d9e75; font-weight: 700; margin-right: 2px; }
+  .cta-btn { display: block; width: 100%; padding: 16px; font-size: 15px; font-weight: 600; text-align: center; color: #fff; background: #085041; border: none; border-radius: 10px; cursor: pointer; text-decoration: none; }
+  .disclaimer { font-size: 11px; color: #9aa5b0; text-align: center; line-height: 1.5; margin-top: 12px; }
+  @media (max-width: 400px) { .calc-wrap { padding: 16px 12px; } .price-display { font-size: 30px; } .savings-top .save-amount { font-size: 34px; } .service-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="calc-wrap">
+  <div class="slider-card">
+    <p class="slider-label">Your home's listing price</p>
+    <p class="price-display" id="price-display">$900,000</p>
+    <input type="range" min="300000" max="4000000" step="10000" value="900000" id="price-slider">
+    <div class="range-labels"><span>$300K</span><span>$4M</span></div>
+  </div>
+  <p class="section-label">Total commission you pay</p>
+  <div class="compare-grid">
+    <div class="compare-card"><p class="label">Traditional agent</p><p class="amount trad" id="trad-cost">$27,000</p><p class="tax-note">+ tax</p></div>
+    <div class="compare-card"><p class="label">One Percent Realty</p><p class="amount opr" id="opr-cost">$18,000</p><p class="tax-note">+ tax</p></div>
+  </div>
+  <div class="how-it-works"><strong>How it works:</strong> With One Percent Realty, you pay 1% to the listing agent + 1% to the buyer's agent (2% total). Under $500K, it's a flat $9,950 total + tax. Traditional agents typically charge 7% on the first $100K + 2.5% on the balance.</div>
+  <div class="savings-block">
+    <div class="savings-top"><p class="save-label">You save</p><p class="save-amount" id="savings">$9,000</p><p class="save-sub">by choosing One Percent Realty</p></div>
+    <hr class="savings-divider">
+    <p class="service-title">Full service included at 1%</p>
+    <div class="service-grid">
+      <span><span class="check">&#10003;</span> MLS &amp; Realtor.ca listing</span>
+      <span><span class="check">&#10003;</span> Professional photography</span>
+      <span><span class="check">&#10003;</span> Open house events</span>
+      <span><span class="check">&#10003;</span> Expert negotiation</span>
+      <span><span class="check">&#10003;</span> Full agent cooperation</span>
+      <span><span class="check">&#10003;</span> Sales closing support</span>
+      <span><span class="check">&#10003;</span> Strategic advertising</span>
+      <span><span class="check">&#10003;</span> For Sale signage</span>
+    </div>
+  </div>
+  <a href="https://www.michaelbortolin.com/landing/whats-my-home-worth" target="_top" class="cta-btn">Get your free home valuation</a>
+  <p class="disclaimer">Savings compare One Percent Realty's total commission (2%, or $9,950 flat under $500K) vs. a traditional total commission of 7% on the first $100K and 2.5% on the balance. All commissions subject to applicable taxes. Not all agents charge the same rate. For illustration only.</p>
+</div>
+</body>
+</html>
